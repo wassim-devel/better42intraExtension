@@ -3,8 +3,7 @@ const User = require("../model/user");
 const router = new express.Router();
 
 router.get("/:login/logtime", async (req, res) => {
-	const login = req.params.login;
-	const user = await User.findByLogin(login);
+	const user = await User.findByLogin(req.params.login);
 	if (!user) {
 		res.status(404).send('User not found');
 		return;
