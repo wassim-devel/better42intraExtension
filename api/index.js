@@ -5,10 +5,9 @@ const cors = require('cors');
 const isLoggedIn = require('./middleware/isLoggedIn');
 const cookieParser = require('cookie-parser');
 const userParser = require('./middleware/userParser');
+const api42 = require('./api42');
 const app = express();
 
-
-module.exports = app;
 
 const corsOptions =  {
   origin: ["https://signin.intra.42.fr", "https://profile.intra.42.fr", `chrome-extension://${process.env.CHROME_EXTENSION_ID}`, `moz-extension://${process.env.FIREFOX_EXTENSION_ID}`],
@@ -26,33 +25,14 @@ app.use('/auth', require('./routes/auth'));
 app.use('/user', isLoggedIn, require('./routes/user'));
 app.use('/firefox', require('./routes/firefox'));
 
-
-// app.get('/logtime', isLoggedIn, async (req, res) => {
-// 		const user = req.user;
-//     const logtime = await user.getLogtime();
-//     if (!logtime)
-//       res.status(500).send('Error while fetching logtime');
-//     var resLogtime = {};
-//     logtime.forEach(element => {
-//       resLogtime[new Date(element.date).toLocaleDateString('en-CA')] = element.duration;
-//     });
-//     res.send(resLogtime);
-// });
-
 app.get('/me', isLoggedIn, async (req, res) => {
-  const response = await fetch(`https://api.intra.42.fr/v2/me`, {
-    headers: {
-      'Authorization': `Bearer ${await req.user.getToken()}`
-    }
-  });
-
-  if (response.status !== 200) {
-    res.status(404).send('User not found');
-    return;
+  try {
+    res.send(await api42.whoAmI(req.user.intraToken));
+    await req.user.save();
+  } catch (e) {
+    console.error(e);
+    res.status(500).send(e);
   }
-
-  const data = await response.json();
-  res.send(data);
 });
 
 
