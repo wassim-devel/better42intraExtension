@@ -9,6 +9,7 @@ module.exports = {
   entry: {
     popup: './src/popup/index.js',
     logtimeContentScript: './src/contentScript/logtime.js',
+    slotsContentScript: './src/contentScript/slots.js',
     background: './src/background.js',
   },
   output: {
