@@ -4,12 +4,12 @@ import {Button, Image, Typography} from 'antd';
 import config from '../config';
 const { Text } = Typography;
 import { LogoutOutlined, ReloadOutlined } from '@ant-design/icons';
+import browserAPI from '../browserAPI';
 
 const App = () => {
 
 	const [user, setUser] = React.useState(null);
 	const [logoutLoading, setLogoutLoading] = React.useState(false);
-	const browserAPI = process.env.BROWSER === 'firefox' ? browser : chrome;
 
 	const onClick = async () => {
 		browserAPI.tabs.create({
@@ -18,7 +18,6 @@ const App = () => {
 		});
 	}
 
-	
 	const onLogout = async () => {
 		setLogoutLoading(true);
 		const response = await fetch(`${config.api}/auth/logout`, {
@@ -27,7 +26,7 @@ const App = () => {
 			},
 			credentials: 'include',
 		});
-		if (response.ok)
+		if (response.ok || response.status === 401)
 		{
 			setUser(null);
 			browserAPI.storage.local.clear();

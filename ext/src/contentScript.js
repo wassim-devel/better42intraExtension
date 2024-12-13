@@ -5,8 +5,7 @@ import { UserProvider } from './context/useUser';
 import Calendar from './logtime/Calendar';
 import { WarningOutlined } from '@ant-design/icons';
 import './logtime/Calendar.css';
-
-const browserAPI = process.env.BROWSER === 'firefox' ? browser : chrome;
+import browserAPI from './browserAPI';
 
 const App = () => {
 

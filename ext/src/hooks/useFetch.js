@@ -1,10 +1,10 @@
 import react from "react";
+import browserAPI from "../browserAPI";
 
 export default function useFetch(url, options = {}, ) {
   const [data, setData] = react.useState(null);
   const [loading, setLoading] = react.useState(true);
   const [error, setError] = react.useState(null);
-  const browserAPI = process.env.BROWSER === 'firefox' ? browser : chrome;
 
   
   react.useEffect(() => {

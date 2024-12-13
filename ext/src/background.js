@@ -1,6 +1,6 @@
+import browserAPI from "./browserAPI";
 import config from "./config";
 
-const browserAPI = process.env.BROWSER === 'firefox' ? browser : chrome;
 
 chrome.webNavigation.onCompleted.addListener(function(details) {
 	const url = new URL(details.url);
