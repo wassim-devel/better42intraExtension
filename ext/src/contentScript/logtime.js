@@ -1,11 +1,11 @@
-import { ConfigProvider, Select, Tooltip } from 'antd';
+import { ConfigProvider, Tooltip } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UserProvider } from './context/useUser';
-import Calendar from './logtime/Calendar';
+import { UserProvider } from '../context/useUser';
+import Calendar from '../logtime/Calendar';
 import { WarningOutlined } from '@ant-design/icons';
-import './logtime/Calendar.css';
-import browserAPI from './browserAPI';
+import '../logtime/Calendar.css';
+import browserAPI from '../browserAPI';
 
 const App = () => {
 

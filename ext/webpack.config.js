@@ -8,7 +8,7 @@ const manifestFileName = process.env.BROWSER === 'firefox' ? 'manifest_firefox.j
 module.exports = {
   entry: {
     popup: './src/popup/index.js',
-    contentScript: './src/contentScript.js',
+    logtimeContentScript: './src/contentScript/logtime.js',
     background: './src/background.js',
   },
   output: {
