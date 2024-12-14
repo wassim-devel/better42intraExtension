@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SlotSelector from '../slots/SlotSelector';
 
+const team_actions = document.querySelector('.team-actions');
 const App = () => {
-	
+	const projectUrl = team_actions.querySelector('.btn-primary').href;
+	console.log('projectUrl', projectUrl);
 	return (
 		<div style={{
 			width: '100%',
 			marginTop: '2vh',
 		}}>
-			<SlotSelector/>
+			<SlotSelector projectUrl={projectUrl}/>
 		</div>
 	);
 	
@@ -17,7 +19,6 @@ const App = () => {
 
 
 console.log('Hello from the content script!');
-const team_actions = document.querySelector('.team-actions');
 if (team_actions) {
 	let root = document.createElement('div');
 	team_actions.appendChild(root);

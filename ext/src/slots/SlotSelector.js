@@ -13,18 +13,22 @@ function createArrayExcludingMultiplesOfFive() {
     return result;
 }
 
-async function getCalendar(team_id) {
-	let page = await fetch(`https://projects.intra.42.fr/projects/inception/slots?team_id=${team_id}`);
+async function getPageData(url) {
+	let page = await fetch(url);
 	if (!page.ok) {
 		return null;
 	}
 	page = await page.text();
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(page, "text/html");
-	return doc.getElementById('calendar');
+	return {
+		calendar: doc.getElementById('calendar'),
+		csrf: doc.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+	};
 }
 
-const SlotSelector = () => {
+
+const SlotSelector = ({projectUrl}) => {
 
 	const [api, contextHolder] = notification.useNotification();
 	const errorNotification = (message) => {
@@ -57,8 +61,8 @@ const SlotSelector = () => {
 
 	const [dateRange, setDateRange] = useState(null);
 	const [started, setStarted] = useState(false);
-	const [teamId, setTeamId] = useState(6219277);
 	const [calendar, setCalendar] = useState(null);
+	const [csrf, setCsrf] = useState(null);
 
 	const checkForSlots = async () => {
 		console.log('Checking for slots');
@@ -73,22 +77,6 @@ const SlotSelector = () => {
 		if (slots.length > 0) {
 			await getSlot(slots);
 		}
-		await getSlot([
-			{
-				ids: "hIQdJkT4oc4mIL1MjoZ0PQ==,ofvGaMRM4Y2hpKUgmZ0xgQ==,n7gN9wNUMI2jigJrcvD75g==,kpgnWWSJezf-kNRSfvT5dw==,w0aIS3g_zuBbgdmUPO5s_Q==",
-				start: "2024-12-23T12:00:00.000+01:00",
-				end: "2024-12-23T13:15:00.000+01:00",
-				id: "ofvGaMRM4Y2hpKUgmZ0xgQ==",
-				title: "Available"
-			},
-			{
-				ids: "mPu5PaEoJhcczpHcLmPe9A==,TLQQHCoNVABpdu-8kfasyQ==",
-				start: "2024-12-23T14:30:00.000+01:00",
-				end: "2024-12-23T15:00:00.000+01:00",
-				id: "ofvGaMRM4Y2hpKUgmZ0xgQ==",
-				title: "Available"
-			}
-		]);
 	};
 
 	const bookSlot = async (ids) => {
@@ -96,6 +84,11 @@ const SlotSelector = () => {
 		const url = "https://projects.intra.42.fr" + calendar.getAttribute('data-update-url').replace(':ids', ids);
 		const response = await fetch(url, {
 			method: 'POST',
+			body: `start=${dateRange[0].format('YYYY-MM-DD')}&end=${dateRange[1].format('YYYY-MM-DD')}&_method=put`,
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+				'X-CSRF-Token': csrf,
+			},
 		});
 		if (!response.ok)
 			errorNotification('Failed to book slot');
@@ -128,8 +121,9 @@ const SlotSelector = () => {
 	}, [started]);
 
 	useEffect(() => {
-		getCalendar(teamId).then((calendar) => {
-			setCalendar(calendar);
+		getPageData(projectUrl).then((data) => {
+			setCalendar(data.calendar);
+			setCsrf(data.csrf);
 		});
 	}, []);
 
