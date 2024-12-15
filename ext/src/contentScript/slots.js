@@ -2,17 +2,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SlotSelector from '../slots/SlotSelector';
 import browserAPI from '../browserAPI';
-import { Alert } from 'antd';
+import { Alert, ConfigProvider, theme } from 'antd';
 
 const team_actions = document.querySelector('.team-actions');
 const App = () => {
 	const projectUrl = team_actions.querySelector('.btn-primary').href;
+	const dark = getComputedStyle(document.body).getPropertyValue('--container-background-color');
 	return (
 		<div style={{
 			width: '100%',
 			marginTop: '2vh',
 		}}>
-			<SlotSelector projectUrl={projectUrl}/>
+			<ConfigProvider
+				theme={{
+					algorithm: dark ? theme.darkAlgorithm : theme.lightAlgorithm,
+				}}
+			>
+				<SlotSelector projectUrl={projectUrl}/>
+			</ConfigProvider>
 		</div>
 	);
 	
