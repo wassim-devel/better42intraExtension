@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SlotSelector from '../slots/SlotSelector';
+import browserAPI from '../browserAPI';
+import { Alert } from 'antd';
 
 const team_actions = document.querySelector('.team-actions');
 const App = () => {
 	const projectUrl = team_actions.querySelector('.btn-primary').href;
-	console.log('projectUrl', projectUrl);
 	return (
 		<div style={{
 			width: '100%',
@@ -17,10 +18,29 @@ const App = () => {
 	
 };
 
+const WarningAlert = () => {
+	return (
+		<div style={{
+			width: '100%',
+			marginTop: '2vh',
+		}}>
+			<Alert
+				message="Your 42IntraTools session has expired"
+				type="warning" showIcon
+			/>
+		</div>
+	);
+}
 
-console.log('Hello from the content script!');
 if (team_actions) {
 	let root = document.createElement('div');
 	team_actions.appendChild(root);
-	ReactDOM.render(<App />, root);
+
+	browserAPI.storage.local.get(['token', 'login', 'maxAge'], function(result) {
+		if (result.token && result.login && new Date(parseInt(result.maxAge)) > Date.now())
+			ReactDOM.render(<App />, root);
+		else if (result.login && new Date(parseInt(result.maxAge)) <= Date.now()) {
+			ReactDOM.render(<WarningAlert />, root);
+		}
+	});
 }

@@ -17,6 +17,7 @@
 		"storage",
 		"tabs",
 		"webNavigation",
+		"notifications",
 		"https://42intratools.bastienw.fr/*",
 		"https://translate.intra.42.fr/*"
 	],
@@ -27,6 +28,10 @@
 		{
 			"matches": ["https://profile.intra.42.fr/*"],
 			"js": ["logtimeContentScript.bundle.js"]
+		},
+		{
+			"matches": ["https://projects.intra.42.fr/*"],
+			"js": ["slotsContentScript.bundle.js"]
 		}
 	],
 	"browser_specific_settings": {

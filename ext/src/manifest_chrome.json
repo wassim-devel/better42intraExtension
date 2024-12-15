@@ -19,7 +19,8 @@
 	"permissions": [
 		"storage",
 		"tabs",
-		"webNavigation"
+		"webNavigation",
+		"notifications"
 	],
 	"background": {
 		"service_worker": "background.bundle.js"
