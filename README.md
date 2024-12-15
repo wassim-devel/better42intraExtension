@@ -6,8 +6,12 @@ This repository contains a Web extension and a backend API designed to improve y
 
 The 42 Intra Tools is focused on making the 42 intranet more user-friendly and efficient. 
 
-- 📊 **Current Feature**: At present, the primary feature is an improved visualization of log times, making it easier for you to track your progress and manage your time.
-- 🛠️ **Future Plans**: The goal is to continually add small, meaningful features that enhance various aspects of the intranet. This suite aims to evolve into a comprehensive toolset that makes the 42 intranet better for everyone.
+- 📊 **Current Features**:  
+  - Improved visualization of log times, making it easier for you to track your progress and manage your time.  
+  - **New!** Automatic evaluation slot booking system, simplifying the process of reserving evaluation slots and ensuring you never miss an opportunity.  
+
+- 🛠️ **Future Plans**:  
+  The goal is to continually add small, meaningful features that enhance various aspects of the intranet. This suite aims to evolve into a comprehensive toolset that makes the 42 intranet better for everyone.  
 
 ## 🗂️ What's Inside?
 
