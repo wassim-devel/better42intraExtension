@@ -71,9 +71,8 @@ const SlotSelector = ({projectUrl}) => {
 			errorNotification('Failed to check for slots');
 		}
 		const slots = await response.json();
-		const isBooked = false;
 		if (slots.length > 0)
-			isBooked = await getSlot(slots);
+			await getSlot(slots);
 	};
 
 	const bookSlot = async (ids) => {
