@@ -19,7 +19,8 @@
 		"webNavigation",
 		"notifications",
 		"https://42intratools.bastienw.fr/*",
-		"https://translate.intra.42.fr/*"
+		"https://translate.intra.42.fr/*",
+		"https://projects.intra.42.fr/*"
 	],
 	"background": {
 		"scripts": ["background.bundle.js"]

@@ -71,9 +71,9 @@ const SlotSelector = ({projectUrl}) => {
 			errorNotification('Failed to check for slots');
 		}
 		const slots = await response.json();
-		if (slots.length > 0) {
-			await getSlot(slots);
-		}
+		const isBooked = false;
+		if (slots.length > 0)
+			isBooked = await getSlot(slots);
 	};
 
 	const bookSlot = async (ids) => {
@@ -112,17 +112,20 @@ const SlotSelector = ({projectUrl}) => {
 				break;
 			}
 		}
-		if (slots.length > 0 && !slotBooked) {
-			errorNotification('Failed to book slot');
-			setStarted(false);
-		}
+		return slotBooked;
 	};
 
 	useEffect(() => {
 		if (started) {
-			const interval = setInterval(() => {
-				checkForSlots();
-			}, 1000);
+			let updated = true;
+			const interval = setInterval(async () => {
+				if (updated)
+				{
+					updated = false;
+					await checkForSlots();
+					updated = true;
+				}
+			}, 500);
 			return () => clearInterval(interval);
 		}
 	}, [started]);

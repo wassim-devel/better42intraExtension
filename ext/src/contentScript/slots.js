@@ -6,22 +6,23 @@ import { Alert, ConfigProvider, theme } from 'antd';
 
 const team_actions = document.querySelector('.team-actions');
 const App = () => {
-	const projectUrl = team_actions.querySelector('.btn-primary').href;
+	const projectUrl = team_actions.querySelector('.btn-primary');
 	const dark = getComputedStyle(document.body).getPropertyValue('--container-background-color');
-	return (
-		<div style={{
-			width: '100%',
-			marginTop: '2vh',
-		}}>
-			<ConfigProvider
-				theme={{
-					algorithm: dark ? theme.darkAlgorithm : theme.lightAlgorithm,
-				}}
-			>
-				<SlotSelector projectUrl={projectUrl}/>
-			</ConfigProvider>
-		</div>
-	);
+	if (projectUrl)
+		return (
+			<div style={{
+				width: '100%',
+				marginTop: '2vh',
+			}}>
+				<ConfigProvider
+					theme={{
+						algorithm: dark ? theme.darkAlgorithm : theme.lightAlgorithm,
+					}}
+				>
+					<SlotSelector projectUrl={projectUrl.href}/>
+				</ConfigProvider>
+			</div>
+		);
 	
 };
 
