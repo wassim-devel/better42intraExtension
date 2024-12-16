@@ -31,7 +31,7 @@ router.get('/42/callback', async (req, res) => {
 
 
 		const token = await Token.create({ user: user._id });
-		res.cookie('token', token.accessToken, { maxAge: config.tokenDuration, httpOnly: true });
+		res.cookie('token', token.accessToken, { maxAge: config.tokenDuration * 1000, httpOnly: true });
 		res.redirect(`/auth/redirect?token=${token.accessToken}&login=${login}&maxAge=${token.getExpirationDate() * 1000}`);
 
 	} catch (e) {
