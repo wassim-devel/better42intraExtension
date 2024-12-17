@@ -118,7 +118,7 @@ const SlotSelector = ({projectUrl}) => {
 		if (started) {
 			let updated = true;
 			const interval = setInterval(async () => {
-				if (moment().isAfter(dateRange[1]))
+				if (moment() > dateRange[1])
 				{
 					setStarted(false);
 					return;
@@ -171,7 +171,7 @@ const SlotSelector = ({projectUrl}) => {
 						</Tag>
 					</>}
 					<Switch
-						disabled={!dateRange}
+						disabled={!dateRange || moment() > dateRange[1]}
 						onChange={setStarted}
 						value={started}
 					/>
