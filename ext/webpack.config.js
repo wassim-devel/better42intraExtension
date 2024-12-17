@@ -12,6 +12,7 @@ module.exports = {
     slotsContentScript: './src/contentScript/slots.js',
     background: './src/background.js',
   },
+  stats: {warnings:false},
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js',
@@ -38,7 +39,7 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         { from: `src/${manifestFileName}`, to: 'manifest.json' },
-        { from: 'public/icons', to: 'icons' }, // Si vous avez des icônes
+        { from: 'public/icons', to: 'icons' },
       ],
     }),
     new webpack.DefinePlugin({
