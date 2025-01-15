@@ -9,6 +9,7 @@ The 42 Intra Tools is focused on making the 42 intranet more user-friendly and e
 - 📊 **Current Features**:  
   - Improved visualization of log times, making it easier for you to track your progress and manage your time.  
   - **New!** Automatic evaluation slot booking system, simplifying the process of reserving evaluation slots and ensuring you never miss an opportunity.  
+  - **New!** Click on profile pictures to view them in full screen, providing a better user experience.  
 
 - 🛠️ **Future Plans**:  
   The goal is to continually add small, meaningful features that enhance various aspects of the intranet. This suite aims to evolve into a comprehensive toolset that makes the 42 intranet better for everyone.  

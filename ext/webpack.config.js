@@ -10,6 +10,7 @@ module.exports = {
     popup: './src/popup/index.js',
     logtimeContentScript: './src/contentScript/logtime.js',
     slotsContentScript: './src/contentScript/slots.js',
+    pictureContentScript: './src/contentScript/picture.js',
     background: './src/background.js',
   },
   stats: {warnings:false},
