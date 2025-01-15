@@ -3,6 +3,10 @@
 	  "{ec7b06f6-9fc3-4ddf-bb84-32126269d3c1}": {
 		"updates": [
 			{
+				"version": "1.5.3",
+				"update_link": "https://github.com/UnRenardQuiDab/42intraExtension/releases/download/v1.5.3/42.IntraTools.1.5.3.xpi"
+			},
+			{
 				"version": "1.5.2",
 				"update_link": "https://github.com/UnRenardQuiDab/42intraExtension/releases/download/v1.5.2/42intratools-1.5.2.xpi"
 			},
