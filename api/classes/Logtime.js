@@ -1,6 +1,6 @@
-import api42 from "../api42";
+const api42 = require("../api42");
 
-export default class Logtime {
+class Logtime {
 	constructor(login) {
 		this.login = login;
 		this.last_fetched_date = null;
@@ -20,22 +20,18 @@ export default class Logtime {
 	}
 
 	async update() {
-		try {
-			const begin = new Date(this.last_fetched_date).toISOString();
-			const end = new Date().toISOString();
-			const response = await api42.fetch(`/v2/users/${this.login}/locations_stats?begin_at=${begin}&end_at=${end}`);
-	
-			for (const date in response) {
-				const logtime = this.durations.find((element) => new Date(element.date) === new Date(date));
-				if (logtime) 
-					logtime.duration = response.data[date];
-				else
-					this.durations.push({date: date, duration: response[date]});
-			}
-			this.last_fetched_date = new Date();
-		} catch (error) {
-			console.error(error);
+		const begin = new Date(this.last_fetched_date).toISOString();
+		const end = new Date().toISOString();
+		const response = await api42.fetch(`/v2/users/${this.login}/locations_stats?begin_at=${begin}&end_at=${end}`);
+
+		for (const date in response) {
+			const logtime = this.durations.find((element) => new Date(element.date) === new Date(date));
+			if (logtime) 
+				logtime.duration = response.data[date];
+			else
+				this.durations.push({date: date, duration: response[date]});
 		}
+		this.last_fetched_date = new Date();
 	}
 
 	async getDurations() {
@@ -46,8 +42,9 @@ export default class Logtime {
 		maxUpdatedDate.setMonth(maxUpdatedDate.getMonth() - 3);
 		if (this.durations.length === 0 || this.last_fetched_date < maxUpdatedDate)
 			await this.update();
-	
 		return this.durations;
 	}
 
 }
+
+module.exports = Logtime;
