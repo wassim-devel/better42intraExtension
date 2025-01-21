@@ -1,3 +1,3 @@
 module.exports = {
-	api: 'https://42intratools.bastienw.fr',
+	api: 'http://localhost:3000',
 }

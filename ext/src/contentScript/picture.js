@@ -37,6 +37,7 @@ browserAPI.storage.local.get(['token', 'login', 'maxAge'], function(result) {
 	if (result.token && result.login && new Date(parseInt(result.maxAge)) > Date.now())
 		images.forEach((image) => {
 			image.style.padding = '0';
+			image.style.display = 'flex';
 			ReactDOM.render(<App url={image.style.backgroundImage.slice(5, -2)} />, image);
 		});
 });
