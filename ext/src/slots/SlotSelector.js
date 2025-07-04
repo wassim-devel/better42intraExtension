@@ -82,6 +82,7 @@ const SlotSelector = ({projectUrl}) => {
 			return slotStart >= dateRange[0] && slotEnd <= dateRange[1]
 		});
 		if (slots.length > 0) {
+			setStarted(false);
 			browserAPI.runtime.sendMessage({
 				action: "createNotification",
 				message: `You have a slot available for ${project} on ${moment(slots[0].start).format('DD-MM-YYYY HH:mm')}`,
