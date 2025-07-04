@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Button, Image, Typography} from 'antd';
+import {Alert, Button, Image, Typography} from 'antd';
 import config from '../config';
 const { Text } = Typography;
 import { LogoutOutlined, ReloadOutlined } from '@ant-design/icons';
@@ -56,7 +56,8 @@ const App = () => {
 			display: 'flex',
 			justifyContent: 'center',
 			alignItems: 'center',
-			flexDirection: 'column'
+			flexDirection: 'column',
+			gap: '16px',
 		}}
 	>
 	  {!user && <Button
@@ -110,6 +111,12 @@ const App = () => {
 		</>
 
 		}
+		<Alert
+			message="New Update:"
+			description="Evaluation slots will no longer be automatically booked. Instead, you'll receive a notification as soon as a slot becomes available. Make sure to enable notifications on https://projects.intra.42.fr/ to stay informed!"
+			type="info"
+			showIcon
+		/>
 	</div>
   );
 };

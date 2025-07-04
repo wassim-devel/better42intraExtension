@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { DatePicker, Flex, notification, Spin, Switch, Tag } from 'antd';
+import { DatePicker, Flex, message, notification, Spin, Switch, Tag } from 'antd';
 import moment from 'moment';
 import browserAPI from '../browserAPI';
 const { RangePicker } = DatePicker;
@@ -59,7 +59,6 @@ const SlotSelector = ({projectUrl}) => {
 	const [dateRange, setDateRange] = useState(null);
 	const [started, setStarted] = useState(false);
 	const [calendar, setCalendar] = useState(null);
-	const [csrf, setCsrf] = useState(null);
 	const project = projectUrl.split('/')[projectUrl.split('/').length - 2];
 
 	const checkForSlots = async () => {
@@ -75,22 +74,6 @@ const SlotSelector = ({projectUrl}) => {
 			await getSlot(slots);
 	};
 
-	const bookSlot = async (ids) => {
-		const url = "https://projects.intra.42.fr" + calendar.getAttribute('data-update-url').replace(':ids', ids);
-		const response = await fetch(url, {
-			method: 'POST',
-			body: `start=${dateRange[0].format('YYYY-MM-DD')}&end=${dateRange[1].format('YYYY-MM-DD')}&_method=put`,
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
-				'X-CSRF-Token': csrf,
-			},
-		});
-		if (!response.ok)
-			return false;
-		setStarted(false);
-		return true;
-	};
-
 	const getSlot = async (slots) => {
 		const slotDuration = calendar.getAttribute('data-duration');
 		slots = slots.filter(slot => {
@@ -98,33 +81,23 @@ const SlotSelector = ({projectUrl}) => {
 			const slotEnd = moment(slot.start).add(slotDuration * 15, 'minutes')
 			return slotStart >= dateRange[0] && slotEnd <= dateRange[1]
 		});
-		let slotBooked = false;
-		for (let i = 0; i < slots.length; i++) {
-			const slot = slots[i];
-			const ids = slot.ids.split(',').slice(0, slotDuration).join(',');
-			if (await bookSlot(ids)) {
-				browserAPI.runtime.sendMessage({
-					action: "createNotification",
-					message: `You will be evaluated on ${project} at ${moment(slot.start).format('HH:mm')}`
-				});
-				slotBooked = true;
-				break;
-			}
+		if (slots.length > 0) {
+			browserAPI.runtime.sendMessage({
+				action: "createNotification",
+				message: `You have a slot available for ${project} on ${moment(slots[0].start).format('DD-MM-YYYY HH:mm')}`,
+			});
 		}
-		return slotBooked;
 	};
 
 	useEffect(() => {
 		if (started) {
 			let updated = true;
 			const interval = setInterval(async () => {
-				if (moment() > dateRange[1])
-				{
+				if (moment() > dateRange[1]) {
 					setStarted(false);
 					return;
 				}
-				if (updated)
-				{
+				if (updated) {
 					updated = false;
 					await checkForSlots();
 					updated = true;
