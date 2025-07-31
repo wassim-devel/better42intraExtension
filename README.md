@@ -4,22 +4,7 @@ This repository contains a Web extension and a backend API designed to improve y
 
 ## 🚀 Why This Project?
 
-The 42 Intra Tools is focused on making the 42 intranet more user-friendly and efficient. 
-
-> [!NOTE]
->
-> Evaluation slots will no longer be automatically booked.  
-> Instead, you'll receive a notification as soon as a slot becomes available.  
-> 👉 Make sure to **enable notifications** on [projects.intra.42.fr](https://projects.intra.42.fr/) to stay informed!
-
-
-- 📊 **Current Features**:  
-  - Improved visualization of log times, making it easier for you to track your progress and manage your time.  
-  - Automatic slot lookup based on a given time range, with notifications when a slot becomes available.
-  - Click on profile pictures to view them in full screen, providing a better user experience.  
-
-- 🛠️ **Future Plans**:  
-  The goal is to continually add small, meaningful features that enhance various aspects of the intranet. This suite aims to evolve into a comprehensive toolset that makes the 42 intranet better for everyone.  
+As the original project has taken a step backwards in user experience by notifying the user instead of taking the slot (which is what the user would want), this project is a fork of the original 42 Intra Tools that fixes this
 
 ## 🗂️ What's Inside?
 
